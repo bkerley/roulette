@@ -8,13 +8,19 @@
 
     %form#rollform(method='post' action='/spin')
       %input#roll(type='submit' value='roll')
+    %h2 Lunch Joints
+    %ul#lunches    
     :plain
       <div pub-key="pub-4f3e077d-4da1-4467-9556-9c94faef31e6" sub-key="sub-de82fb73-cdce-11e0-b051-3165b8125ff8" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
       <script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
     :javascript
       PUBNUB.subscribe({
         channel  : "bryce-sergio-roulette",
-        callback : alert
+        callback : function(message) {
+          $('#lunches').append(
+            "<li>"+message+"</li>"
+          );
+        }
       });
       $('#rollform').submit(function() {
         $.ajax('/spin', {
