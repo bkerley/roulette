@@ -6,11 +6,13 @@ SUBSCRIBE = 'sub-de82fb73-cdce-11e0-b051-3165b8125ff8'
 SECRET = 'sec-8e1f1594-ceb9-48cf-aa56-78dced69a0c5'
 API = Pubnub.new PUBLISH, SUBSCRIBE, SECRET, false
 
+LUNCH = %w{ flanigans grovespot milams publix barracuda scottys }
+
 get '/' do
   haml :index
 end
 
 post '/spin' do
-  API.publish 'channel'=>'bryce-sergio-roulette', 'message'=>Time.now.to_i.to_s
+  API.publish 'channel'=>'bryce-sergio-roulette', 'message'=>LUNCH[rand LUNCH.length]
   ':)'
 end
